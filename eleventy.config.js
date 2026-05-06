@@ -1,5 +1,7 @@
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 
+import externalPosts from "./content/_data/externalPosts.js";
+
 const dateJaFormatter = new Intl.DateTimeFormat("ja-JP", {
   dateStyle: "long",
   timeZone: "Asia/Tokyo",
@@ -58,11 +60,25 @@ export default function (eleventyConfig) {
     return `<time datetime="${datetime}">${escapeHtml(label)}</time>`;
   });
 
-  eleventyConfig.addCollection("posts", (collectionApi) =>
-    collectionApi
-      .getFilteredByGlob("content/posts/**/*.md")
-      .sort((a, b) => b.date - a.date),
-  );
+  eleventyConfig.addCollection("posts", (collectionApi) => {
+    const local = collectionApi.getFilteredByGlob("content/posts/**/*.md").map((item) => ({
+      url: item.url,
+      date: item.date,
+      data: item.data,
+      external: false,
+    }));
+    const external = externalPosts.map((p) => ({
+      url: p.url,
+      date: new Date(p.published),
+      data: {
+        title: p.title,
+        published: p.published,
+      },
+      external: true,
+      publication: p.publication,
+    }));
+    return [...local, ...external].sort((a, b) => b.date - a.date);
+  });
 
   return {
     dir: {
