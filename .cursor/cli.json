@@ -1,6 +1,0 @@
-{
-  "permissions": {
-    "allow": ["Shell(npx @11ty/eleventy)", "Shell(npm run)"],
-    "deny": []
-  }
-}
