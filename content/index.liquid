@@ -1,0 +1,34 @@
+---
+layout: base.liquid
+---
+<section class="home-profile" aria-labelledby="profile-heading">
+  {% comment %} Avatar: GitHub https://avatars.githubusercontent.com/u/20238714 を保存 {% endcomment %}
+  <img
+    class="home-profile-avatar"
+    src="/img/avatar.jpg"
+    alt=""
+    width="460"
+    height="460"
+    decoding="async"
+  />
+  <div class="home-profile-body">
+    <h1 id="profile-heading">otariidae</h1>
+    <ul class="home-profile-links">
+      <li><a href="https://github.com/otariidae" rel="me noopener noreferrer">github.com/otariidae</a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="posts" aria-labelledby="posts-heading">
+  <h2 id="posts-heading">ブログ</h2>
+  <ul class="post-index" role="list">
+    {%- for post in collections.posts -%}
+      <li>
+        <a href="{{ post.url }}" class="post-index-link">
+          <time datetime="{{ post.data.published | yyyyMmDd }}" class="post-index-date">{{ post.data.published | dateJa }}</time>
+          <h3 class="post-index-title">{{ post.data.title }}</h3>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {%- if title -%}
+        {{- title }} · otariidae.com
+      {%- else -%}
+        otariidae.com
+      {%- endif -%}
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <style>
+      :root {
+        --site-header-border: var(--pico-muted-border-color);
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      body > main {
+        flex: 1;
+      }
+
+      .container {
+        max-width: 1024px;
+      }
+
+      .site-header {
+        border-bottom: 1px solid var(--site-header-border);
+      }
+
+      .site-header nav {
+        padding-block: var(--pico-spacing);
+      }
+
+      .site-footer {
+        margin-top: var(--pico-block-spacing-vertical);
+        padding-block: calc(var(--pico-spacing) * 1.25);
+        border-top: 1px solid var(--site-header-border);
+        color: var(--pico-muted-color);
+      }
+
+      .site-footer p {
+        margin-bottom: 0;
+      }
+
+      .post-index {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .post-index > li {
+        margin: 0;
+        list-style: none;
+        border-bottom: 1px solid var(--pico-muted-border-color);
+      }
+
+      .post-index > li:last-child {
+        border-bottom: none;
+      }
+
+      .post-index-link {
+        display: grid;
+        grid-template-columns: 12rem 1fr;
+        column-gap: 1.25rem;
+        row-gap: 0.1rem;
+        align-items: baseline;
+        padding-block: 0.4rem;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: none;
+      }
+
+      .post-index-link:hover,
+      .post-index-link:focus,
+      .post-index-link:active {
+        text-decoration: none;
+      }
+
+      .post-index-link:focus-visible {
+        outline: 2px solid var(--pico-primary);
+        outline-offset: 2px;
+        border-radius: 2px;
+        box-shadow: none;
+      }
+
+      .post-index-date {
+        justify-self: end;
+        font-size: 0.8125rem;
+        color: var(--pico-muted-color);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        text-align: end;
+        text-decoration: none;
+        text-decoration-line: none;
+      }
+
+      .post-index-title {
+        margin: 0;
+        min-width: 0;
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: var(--pico-line-height);
+        color: var(--pico-primary);
+        --pico-font-size: inherit;
+        --pico-font-weight: inherit;
+        --pico-line-height: inherit;
+        --pico-typography-spacing-top: 0;
+        --pico-typography-spacing-vertical: 0;
+        text-decoration: none;
+        text-decoration-line: none;
+      }
+
+      .post-index-link:hover .post-index-title {
+        text-decoration: underline;
+        text-decoration-line: underline;
+        text-underline-offset: 0.15em;
+      }
+
+      @media (max-width: 32rem) {
+        .post-index-link {
+          grid-template-columns: 1fr;
+          row-gap: 0.15rem;
+          padding-block: 0.45rem;
+        }
+
+        .post-index-date {
+          justify-self: start;
+          white-space: normal;
+          text-align: start;
+        }
+      }
+
+      .gist-source-notice {
+        margin: 0 0 var(--pico-typography-spacing-vertical);
+      }
+
+      .gist-source-notice p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--pico-muted-color);
+      }
+
+      .home-profile {
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        gap: 1.25rem 1.5rem;
+        align-items: center;
+        padding-block: 0.35rem 1.75rem;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid var(--pico-muted-border-color);
+      }
+
+      .home-profile-avatar {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: var(--pico-card-box-shadow);
+        border: 1px solid var(--pico-muted-border-color);
+      }
+
+      .home-profile-body {
+        min-width: 0;
+      }
+
+      .home-profile-body h1 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: clamp(1.35rem, 4vw, 1.75rem);
+        line-height: var(--pico-line-height);
+      }
+
+      .home-profile-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem 1.15rem;
+        margin: 0;
+        list-style: none;
+      }
+
+      .home-profile-links li {
+        margin: 0;
+      }
+
+      @media (max-width: 32rem) {
+        .home-profile {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
+        }
+
+        .home-profile-body {
+          text-align: center;
+        }
+
+        .home-profile-links {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container" aria-label="サイト全体">
+        <ul>
+          <li>
+            <a href="/" class="contrast"><strong>otariidae.com</strong></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main-content" class="container">{{ content | raw }}</main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          <small>
+            © {% if buildYear %}{{ buildYear }}{% else %}2026{% endif %}
+            otariidae.
+            <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" rel="license">CC BY 4.0</a>
+          </small>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

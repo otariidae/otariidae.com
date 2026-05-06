@@ -1,0 +1,37 @@
+---
+layout: base.liquid
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-night-owl.min.css"
+/>
+
+<article lang="{{ lang }}">
+  <p>
+    {% time published %}
+  </p>
+  {% if gist_url %}
+    <aside
+      class="gist-source-notice"
+      role="note"
+      {% if lang == 'en' %}
+        aria-label="Originally published as a Gist"
+      {% else %}
+        aria-label="Gist からの移行であることの説明"
+      {% endif %}
+    >
+      {% if lang == 'en' %}
+        <p>
+          Originally published as a <a href="{{ gist_url }}">GitHub Gist</a> and migrated to this site.
+        </p>
+      {% else %}
+        <p>
+          この記事は <a href="{{ gist_url }}">GitHub Gist</a> からこのサイトへ移行したものです。
+        </p>
+      {% endif %}
+    </aside>
+  {% endif %}
+  <h1>{{ title }}</h1>
+  {{ content | raw }}
+</article>
