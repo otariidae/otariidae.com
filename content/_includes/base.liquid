@@ -14,6 +14,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
+    {% if fontawesome %}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    {% endif %}
     <style>
       :root {
         --site-header-border: var(--pico-muted-border-color);
@@ -104,6 +111,47 @@
         text-decoration-line: none;
       }
 
+      .post-index-main {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+
+      .post-index-title-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.35rem 0.5rem;
+        min-width: 0;
+      }
+
+      .post-index-source-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.32rem;
+        flex-shrink: 0;
+        max-width: 100%;
+        padding: 0.12em 0.45em 0.1em;
+        font-size: 0.72rem;
+        font-weight: 400;
+        line-height: 1.25;
+        color: var(--pico-muted-color);
+        border: 1px solid var(--pico-muted-border-color);
+        border-radius: 0.35rem;
+      }
+
+      .post-index-source-icon {
+        flex-shrink: 0;
+        font-size: 0.75em;
+        line-height: 1;
+        opacity: 0.9;
+      }
+
+      .post-index-source-label {
+        min-width: 0;
+      }
+
       .post-index-title {
         margin: 0;
         min-width: 0;
@@ -118,6 +166,13 @@
         --pico-typography-spacing-vertical: 0;
         text-decoration: none;
         text-decoration-line: none;
+      }
+
+      .post-index-publication {
+        font-size: 0.78rem;
+        font-weight: 400;
+        color: var(--pico-muted-color);
+        line-height: var(--pico-line-height);
       }
 
       .post-index-link:hover .post-index-title {
