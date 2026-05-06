@@ -1,4 +1,8 @@
 node_modules
 _site
+.git
 package-lock.json
 .cursor
+.agents/**
+.claude/**
+skills-lock.json

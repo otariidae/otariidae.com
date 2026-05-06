@@ -7,8 +7,8 @@
     "build": "eleventy",
     "predev": "npm run clean",
     "dev": "eleventy --serve",
-    "format": "prettier --write \"**/*.{liquid,md}\"",
-    "format:check": "prettier --check \"**/*.{liquid,md}\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "deploy": "npm run build && wrangler deploy",
     "preview": "npm run build && wrangler dev"
   },
