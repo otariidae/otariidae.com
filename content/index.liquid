@@ -1,51 +1,62 @@
 ---
 layout: base.liquid
-fontawesome: true
 ---
-<section class="home-profile" aria-labelledby="profile-heading">
+<section
+  class="home-profile wa-flank wa-align-items-center wa-gap-l"
+  aria-labelledby="profile-heading"
+  style="--flank-size: 5rem;"
+>
   {% comment %} Avatar: GitHub https://avatars.githubusercontent.com/u/20238714 を保存 {% endcomment %}
-  <img
-    class="home-profile-avatar"
-    src="/img/avatar.jpg"
-    alt=""
-    width="460"
-    height="460"
-    decoding="async"
-  />
-  <div class="home-profile-body">
-    <h1 id="profile-heading">otariidae</h1>
-    <ul class="home-profile-links">
-      <li><a href="https://github.com/otariidae" rel="me noopener noreferrer">github.com/otariidae</a></li>
+  <wa-avatar
+    image="/img/avatar.jpg"
+    label="otariidae"
+    shape="circle"
+    loading="lazy"
+    style="--size: 5rem; box-shadow: var(--wa-shadow-m); outline: solid 1px var(--wa-color-surface-border);"
+  ></wa-avatar>
+  <div class="home-profile-body wa-stack wa-gap-s wa-align-items-start">
+    <h1 id="profile-heading" class="home-profile-heading wa-heading">otariidae</h1>
+    <ul class="home-profile-links wa-cluster wa-gap-m" role="list">
+      <li>
+        <a href="https://github.com/otariidae" rel="me noopener noreferrer">github.com/otariidae</a>
+      </li>
     </ul>
   </div>
 </section>
 
-<section id="posts" aria-labelledby="posts-heading">
-  <h2 id="posts-heading">ブログ</h2>
-  <ul class="post-index" role="list">
+<wa-divider style="--spacing: var(--wa-space-l);"></wa-divider>
+
+<section id="posts" class="wa-stack wa-gap-m" aria-labelledby="posts-heading">
+  <h2 id="posts-heading" class="wa-heading-l">ブログ</h2>
+  <ul class="post-index wa-stack wa-gap-0" role="list">
     {%- for post in collections.posts -%}
       <li>
+        {% unless forloop.first %}
+          <wa-divider class="post-index-divider"></wa-divider>
+        {% endunless %}
         <a
           href="{{ post.url }}"
-          class="post-index-link"
+          class="post-index-link wa-flank wa-align-items-baseline wa-gap-l"
           {% if post.external -%}
             rel="noopener noreferrer"
           {%- endif %}
         >
-          <time datetime="{{ post.data.published | yyyyMmDd }}" class="post-index-date">{{ post.data.published | dateJa }}</time>
-          <span class="post-index-main">
-            <span class="post-index-title-row">
-              <h3 class="post-index-title">{{ post.data.title }}</h3>
+          <time datetime="{{ post.data.published | yyyyMmDd }}" class="post-index-date">
+            {{- post.data.published | dateJa -}}
+          </time>
+          <span class="post-index-main wa-stack wa-gap-3xs">
+            <span class="wa-cluster wa-align-items-baseline wa-gap-xs">
+              <h3 class="post-index-title wa-heading-s">{{ post.data.title }}</h3>
               {% if post.external %}
-                <span class="post-index-source-badge">
-                  <i class="fa-solid fa-up-right-from-square post-index-source-icon" aria-hidden="true"></i>
-                  <span class="post-index-source-label">{{ post.publication | default: "外部サイト" }}</span>
-                </span>
+                <wa-tag size="s" appearance="outlined" variant="neutral" class="post-index-external-tag">
+                  <wa-icon name="up-right-from-square" family="classic" variant="solid" aria-hidden="true"></wa-icon>
+                  {{ post.publication | default: '外部サイト' }}
+                </wa-tag>
               {% endif %}
             </span>
             {% if post.publication %}
               {% unless post.external %}
-                <span class="post-index-publication">{{ post.publication }}</span>
+                <span class="wa-caption-s">{{ post.publication }}</span>
               {% endunless %}
             {% endif %}
           </span>

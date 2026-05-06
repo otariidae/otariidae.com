@@ -33,6 +33,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("buildYear", () => new Date().getFullYear());
 
   eleventyConfig.addPassthroughCopy("content/img");
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@awesome.me/webawesome/dist-cdn": "vendor/webawesome",
+  });
 
   eleventyConfig.addPlugin(syntaxHighlight);
 
