@@ -185,6 +185,23 @@
       article .wa-longform {
         line-height: 1.75;
       }
+
+      /*
+        日本語記事: CSS Text 4 系（対応ブラウザのみ）
+        - text-autospace: 漢字かなと欧文・数字のあいだを自動アキ
+        - text-spacing-trim: 約物まわりの余白調整（フォントが halt/chws に対応している場合）
+        - line-break: strict: 和文の禁則に寄せた改行
+      */
+      article:lang(ja) {
+        text-autospace: normal;
+        text-spacing-trim: normal;
+        line-break: strict;
+      }
+
+      article:lang(ja) pre {
+        text-autospace: no-autospace;
+        text-spacing-trim: space-all;
+      }
     </style>
   </head>
   <body>
