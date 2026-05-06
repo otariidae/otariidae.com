@@ -1,37 +1,31 @@
 ---
 layout: base.liquid
 ---
-
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-ghcolors.min.css"
+  media="not (prefers-color-scheme: dark)"
+>
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-night-owl.min.css"
-/>
+  media="(prefers-color-scheme: dark)"
+>
 
-<article lang="{{ lang }}">
-  <p>
-    {% time published %}
-  </p>
+<article lang="{{ lang }}" class="wa-stack wa-gap-xl">
+  <p class="wa-caption-m">{% time published %}</p>
   {% if gist_url %}
-    <aside
-      class="gist-source-notice"
-      role="note"
+    <wa-callout variant="neutral">
+      <wa-icon slot="icon" name="code-branch"></wa-icon>
       {% if lang == 'en' %}
-        aria-label="Originally published as a Gist"
+        <span>Originally published as a <a href="{{ gist_url }}">GitHub Gist</a> and migrated to this site.</span>
       {% else %}
-        aria-label="Gist からの移行であることの説明"
+        <span>この記事は <a href="{{ gist_url }}">GitHub Gist</a> からこのサイトへ移行したものです。</span>
       {% endif %}
-    >
-      {% if lang == 'en' %}
-        <p>
-          Originally published as a <a href="{{ gist_url }}">GitHub Gist</a> and migrated to this site.
-        </p>
-      {% else %}
-        <p>
-          この記事は <a href="{{ gist_url }}">GitHub Gist</a> からこのサイトへ移行したものです。
-        </p>
-      {% endif %}
-    </aside>
+    </wa-callout>
   {% endif %}
   <h1>{{ title }}</h1>
-  {{ content | raw }}
+  <div class="wa-longform">
+    {{ content | raw }}
+  </div>
 </article>

@@ -1,8 +1,22 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="wa-theme-default wa-cloak">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const mq = window.matchMedia && matchMedia('(prefers-color-scheme: dark)');
+        function sync() {
+          root.classList.toggle('wa-dark', Boolean(mq && mq.matches));
+        }
+        sync();
+        if (mq && mq.addEventListener) {
+          mq.addEventListener('change', sync);
+        }
+      })();
+    </script>
     <title>
       {%- if title -%}
         {{- title }} · otariidae.com
@@ -10,26 +24,14 @@
         otariidae.com
       {%- endif -%}
     </title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
-    {% if fontawesome %}
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"
-      crossorigin="anonymous"
-    />
-    {% endif %}
+    <link rel="stylesheet" href="/vendor/webawesome/styles/webawesome.css">
     <style>
-      :root {
-        --site-header-border: var(--pico-muted-border-color);
-      }
-
       body {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        background-color: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
       }
 
       body > main {
@@ -37,22 +39,20 @@
       }
 
       .container {
+        width: 100%;
         max-width: 1024px;
+        margin-inline: auto;
+        padding-inline: var(--wa-space-m);
+        box-sizing: border-box;
       }
 
-      .site-header {
-        border-bottom: 1px solid var(--site-header-border);
-      }
-
-      .site-header nav {
-        padding-block: var(--pico-spacing);
+      .site-nav {
+        padding-block: var(--wa-space-m);
       }
 
       .site-footer {
-        margin-top: var(--pico-block-spacing-vertical);
-        padding-block: calc(var(--pico-spacing) * 1.25);
-        border-top: 1px solid var(--site-header-border);
-        color: var(--pico-muted-color);
+        padding-block: calc(var(--wa-space-m) * 1.25);
+        color: var(--wa-color-text-quiet);
       }
 
       .site-footer p {
@@ -68,23 +68,18 @@
       .post-index > li {
         margin: 0;
         list-style: none;
-        border-bottom: 1px solid var(--pico-muted-border-color);
       }
 
-      .post-index > li:last-child {
-        border-bottom: none;
+      .post-index-divider {
+        --spacing: var(--wa-space-3xs);
       }
 
       .post-index-link {
-        display: grid;
-        grid-template-columns: 12rem 1fr;
-        column-gap: 1.25rem;
-        row-gap: 0.1rem;
-        align-items: baseline;
-        padding-block: 0.4rem;
+        padding-block: var(--wa-space-xs);
         text-decoration: none;
         color: inherit;
         box-shadow: none;
+        --flank-size: 12rem;
       }
 
       .post-index-link:hover,
@@ -94,153 +89,70 @@
       }
 
       .post-index-link:focus-visible {
-        outline: 2px solid var(--pico-primary);
+        outline: 2px solid var(--wa-color-focus);
         outline-offset: 2px;
-        border-radius: 2px;
+        border-radius: var(--wa-border-radius-s);
         box-shadow: none;
       }
 
       .post-index-date {
-        justify-self: end;
-        font-size: 0.8125rem;
-        color: var(--pico-muted-color);
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
         text-align: end;
         text-decoration: none;
-        text-decoration-line: none;
       }
 
       .post-index-main {
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
-      }
-
-      .post-index-title-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 0.35rem 0.5rem;
-        min-width: 0;
-      }
-
-      .post-index-source-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.32rem;
-        flex-shrink: 0;
-        max-width: 100%;
-        padding: 0.12em 0.45em 0.1em;
-        font-size: 0.72rem;
-        font-weight: 400;
-        line-height: 1.25;
-        color: var(--pico-muted-color);
-        border: 1px solid var(--pico-muted-border-color);
-        border-radius: 0.35rem;
-      }
-
-      .post-index-source-icon {
-        flex-shrink: 0;
-        font-size: 0.75em;
-        line-height: 1;
-        opacity: 0.9;
-      }
-
-      .post-index-source-label {
         min-width: 0;
       }
 
       .post-index-title {
         margin: 0;
         min-width: 0;
-        font-size: 0.95rem;
-        font-weight: 500;
-        line-height: var(--pico-line-height);
-        color: var(--pico-primary);
-        --pico-font-size: inherit;
-        --pico-font-weight: inherit;
-        --pico-line-height: inherit;
-        --pico-typography-spacing-top: 0;
-        --pico-typography-spacing-vertical: 0;
+        font-weight: var(--wa-font-weight-semibold);
+        line-height: var(--wa-line-height-normal);
+        color: var(--wa-color-text-link);
         text-decoration: none;
-        text-decoration-line: none;
-      }
-
-      .post-index-publication {
-        font-size: 0.78rem;
-        font-weight: 400;
-        color: var(--pico-muted-color);
-        line-height: var(--pico-line-height);
       }
 
       .post-index-link:hover .post-index-title {
         text-decoration: underline;
-        text-decoration-line: underline;
         text-underline-offset: 0.15em;
+      }
+
+      .post-index-external-tag wa-icon {
+        font-size: 0.75em;
+        vertical-align: -0.1em;
       }
 
       @media (max-width: 32rem) {
         .post-index-link {
-          grid-template-columns: 1fr;
-          row-gap: 0.15rem;
-          padding-block: 0.45rem;
+          --flank-size: auto;
+          padding-block: var(--wa-space-s);
         }
 
         .post-index-date {
-          justify-self: start;
           white-space: normal;
           text-align: start;
         }
       }
 
-      .gist-source-notice {
-        margin: 0 0 var(--pico-typography-spacing-vertical);
-      }
-
-      .gist-source-notice p {
+      .home-profile-heading {
         margin: 0;
-        font-size: 0.9rem;
-        color: var(--pico-muted-color);
-      }
-
-      .home-profile {
-        display: grid;
-        grid-template-columns: 5rem 1fr;
-        gap: 1.25rem 1.5rem;
-        align-items: center;
-        padding-block: 0.35rem 1.75rem;
-        margin-bottom: 0.75rem;
-        border-bottom: 1px solid var(--pico-muted-border-color);
-      }
-
-      .home-profile-avatar {
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50%;
-        object-fit: cover;
-        box-shadow: var(--pico-card-box-shadow);
-        border: 1px solid var(--pico-muted-border-color);
+        font-size: clamp(1.35rem, 4vw, 1.75rem);
+        line-height: var(--wa-line-height-normal);
       }
 
       .home-profile-body {
         min-width: 0;
       }
 
-      .home-profile-body h1 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        font-size: clamp(1.35rem, 4vw, 1.75rem);
-        line-height: var(--pico-line-height);
-      }
-
       .home-profile-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem 1.15rem;
-        margin: 0;
         list-style: none;
+        margin: 0;
+        padding: 0;
       }
 
       .home-profile-links li {
@@ -249,33 +161,44 @@
 
       @media (max-width: 32rem) {
         .home-profile {
-          grid-template-columns: 1fr;
-          justify-items: center;
           text-align: center;
         }
 
+        .home-profile .wa-flank {
+          justify-content: center;
+        }
+
         .home-profile-body {
-          text-align: center;
+          align-items: center;
         }
 
         .home-profile-links {
           justify-content: center;
         }
       }
+
+      /* 記事: longform の明朝トークンをゴシック（本文）に揃え、行間をやや広げる */
+      article {
+        --wa-font-family-longform: var(--wa-font-family-body);
+      }
+
+      article .wa-longform {
+        line-height: 1.75;
+      }
     </style>
   </head>
   <body>
     <header class="site-header">
-      <nav class="container" aria-label="サイト全体">
-        <ul>
-          <li>
-            <a href="/" class="contrast"><strong>otariidae.com</strong></a>
-          </li>
-        </ul>
+      <nav class="container site-nav" aria-label="サイト全体">
+        <div class="wa-cluster wa-gap-m">
+          <a href="/"><strong>otariidae.com</strong></a>
+        </div>
       </nav>
+      <wa-divider></wa-divider>
     </header>
-    <main id="main-content" class="container">{{ content | raw }}</main>
+    <main id="main-content" class="container wa-stack wa-gap-2xl">{{ content | raw }}</main>
     <footer class="site-footer">
+      <wa-divider style="--spacing: var(--wa-space-m);"></wa-divider>
       <div class="container">
         <p>
           <small>
@@ -286,5 +209,6 @@
         </p>
       </div>
     </footer>
+    <script type="module" src="/vendor/webawesome/webawesome.loader.js"></script>
   </body>
 </html>
