@@ -64,12 +64,14 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("posts", (collectionApi) => {
-    const local = collectionApi.getFilteredByGlob("content/posts/**/*.md").map((item) => ({
-      url: item.url,
-      date: item.date,
-      data: item.data,
-      external: false,
-    }));
+    const local = collectionApi
+      .getFilteredByGlob("content/posts/**/*.md")
+      .map((item) => ({
+        url: item.url,
+        date: item.date,
+        data: item.data,
+        external: false,
+      }));
     const external = externalPosts.map((p) => ({
       url: p.url,
       date: new Date(p.published),

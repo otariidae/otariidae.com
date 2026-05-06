@@ -3,12 +3,10 @@
   "name": "otariidaedotcom",
   "compatibility_date": "2026-05-06",
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "assets": {
-    "directory": "_site"
+    "directory": "_site",
   },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "compatibility_flags": ["nodejs_compat"],
 }
