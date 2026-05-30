@@ -1,6 +1,18 @@
 /** このサイト以外に掲載した記事（手動メンテナンス） */
 export default [
   {
+    published: "2026-05-29",
+    title: "214ファイル、13,500行のHamlをERBに移行しReActionViewを採用",
+    url: "https://product.st.inc/entry/2026/05/29/191707",
+    publication: "STORES Product Blog",
+  },
+  {
+    published: "2026-05-28",
+    title: "Herb LinterのカスタムルールでERBのよくあるミスを防ごう",
+    url: "https://product.st.inc/entry/2026/05/28/152523",
+    publication: "STORES Product Blog",
+  },
+  {
     published: "2026-02-27",
     title: "WebMockでヘッダーにRSpecマッチャーは効かない",
     url: "https://product.st.inc/entry/2026/02/27/172326",
